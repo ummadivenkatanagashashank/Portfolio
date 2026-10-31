@@ -87,7 +87,6 @@ nav a:hover, nav a[aria-current="page"] {
   border-bottom: 2px solid var(--primary-color);
 }
 
-/* Theme Toggle Button */
 .theme-toggle-btn {
   background: transparent;
   border: 1px solid var(--border-color);
