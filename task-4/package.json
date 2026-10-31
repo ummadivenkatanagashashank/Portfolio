@@ -1,13 +1,7 @@
 {
-  "name": "portfolio-task-4-production",
+  "name": "portfolio-root",
   "version": "1.0.0",
-  "description": "Production build, testing, and deployment pipeline for web portfolio.",
-  "main": "src/script.js",
   "scripts": {
-    "start": "npx serve src",
-    "build": "mkdir -p dist && cp -r src/* dist/"
-  },
-  "keywords": ["production", "lighthouse", "accessibility", "performance"],
-  "author": "Ummadi Venkata Naga Shashank",
-  "license": "MIT"
+    "build": "echo 'No build step required'"
+  }
 }
