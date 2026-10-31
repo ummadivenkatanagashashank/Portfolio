@@ -5,8 +5,7 @@
   "main": "src/script.js",
   "scripts": {
     "start": "npx serve src",
-    "lint": "npx eslint src/script.js",
-    "build": "mkdir -p dist && cp -r src/* dist/"    "test:lighthouse": "npx lighthouse http://localhost:3000 --output html --output-path ./dist/lighthouse-report.html"
+    "build": "mkdir -p dist && cp -r src/* dist/"
   },
   "keywords": ["production", "lighthouse", "accessibility", "performance"],
   "author": "Ummadi Venkata Naga Shashank",
