@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-task-4-production",
+  "version": "1.0.0",
+  "description": "Production build, testing, and deployment pipeline for web portfolio.",
+  "main": "src/script.js",
+  "scripts": {
+    "start": "npx serve src",
+    "lint": "npx eslint src/script.js",
+    "build": "mkdir -p dist && cp src/*.html dist/ && npx terser src/script.js -o dist/script.js --compress --mangle && npx csso-cli -i src/style.css -o dist/style.css",
+    "test:lighthouse": "npx lighthouse http://localhost:3000 --output html --output-path ./dist/lighthouse-report.html"
+  },
+  "keywords": ["production", "lighthouse", "accessibility", "performance"],
+  "author": "Ummadi Venkata Naga Shashank",
+  "license": "MIT"
+}
