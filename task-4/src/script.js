@@ -1,29 +1,18 @@
-/**
- * Task 3: Dynamic DOM Manipulation & Asynchronous Web APIs
- * Author: Ummadi Venkata Naga Shashank
- */
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize features based on current page context
   initThemeToggle();
   initContactFormValidation();
   initProjectsFetcher();
 });
 
-/* ==========================================================================
-   1. Dynamic Light/Dark Theme Switcher (DOM Manipulation & LocalStorage)
-   ========================================================================== */
 function initThemeToggle() {
   const header = document.querySelector("header");
   if (!header) return;
 
-  // Create Theme Toggle Button dynamically
   const toggleBtn = document.createElement("button");
   toggleBtn.id = "theme-toggle";
   toggleBtn.className = "theme-toggle-btn";
   toggleBtn.setAttribute("aria-label", "Toggle dark and light mode");
   
-  // Retrieve saved preference or check system default
   const savedTheme = localStorage.getItem("portfolio-theme");
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   
@@ -31,7 +20,6 @@ function initThemeToggle() {
   document.documentElement.setAttribute("data-theme", currentTheme);
   updateToggleIcon(toggleBtn, currentTheme);
 
-  // Toggle Theme on Click
   toggleBtn.addEventListener("click", () => {
     const activeTheme = document.documentElement.getAttribute("data-theme");
     const newTheme = activeTheme === "dark" ? "light" : "dark";
@@ -48,38 +36,25 @@ function updateToggleIcon(button, theme) {
   button.innerHTML = theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
 }
 
-/* ==========================================================================
-   2. Asynchronous API Fetching (Fetch API & Async/Await)
-   ========================================================================== */
 async function initProjectsFetcher() {
   const projectsGrid = document.getElementById("github-projects-grid");
   if (!projectsGrid) return;
 
-  // Render initial loading state
   projectsGrid.innerHTML = `<p class="loading-state" role="status">Fetching public repositories...</p>`;
 
   try {
-    // Fetch GitHub Repositories for the user
     const response = await fetch("https://api.github.com/users/octocat/repos?per_page=4&sort=updated");
-    
-    if (!response.ok) {
-      throw new Error(`GitHub API Error: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`GitHub API Error: ${response.status}`);
 
     const repos = await response.json();
     renderGitHubProjects(repos, projectsGrid);
   } catch (error) {
-    console.error("Failed to load GitHub projects:", error);
-    projectsGrid.innerHTML = `
-      <div class="error-message" role="alert">
-        <p>Unable to load external projects at this time.</p>
-      </div>
-    `;
+    projectsGrid.innerHTML = `<div class="error-message" role="alert"><p>Unable to load external projects at this time.</p></div>`;
   }
 }
 
 function renderGitHubProjects(repos, container) {
-  container.innerHTML = ""; // Clear loading state
+  container.innerHTML = "";
 
   repos.forEach((repo) => {
     const card = document.createElement("article");
@@ -111,30 +86,22 @@ function renderGitHubProjects(repos, container) {
   });
 }
 
-/* ==========================================================================
-   3. Real-time Form Validation & Submission Handling
-   ========================================================================== */
 function initContactFormValidation() {
   const form = document.getElementById("contact-form");
   if (!form) return;
 
   const inputs = form.querySelectorAll("input, textarea");
 
-  // Real-time blur event validation
   inputs.forEach((input) => {
     input.addEventListener("blur", () => validateField(input));
     input.addEventListener("input", () => clearError(input));
   });
 
-  // Handle Form Submission
-  form.addEventListener("submit", async (e) => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
-
     let isValid = true;
     inputs.forEach((input) => {
-      if (!validateField(input)) {
-        isValid = false;
-      }
+      if (!validateField(input)) isValid = false;
     });
 
     if (!isValid) return;
@@ -143,7 +110,6 @@ function initContactFormValidation() {
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
 
-    // Simulate async submission API call
     setTimeout(() => {
       showFormStatus(form, "Message sent successfully! Thank you for reaching out.", "success");
       form.reset();
