@@ -1,0 +1,5 @@
+{
+  "buildCommand": "mkdir -p dist && cp -r task-4/src/* dist/",
+  "outputDirectory": "dist",
+  "framework": null
+}
